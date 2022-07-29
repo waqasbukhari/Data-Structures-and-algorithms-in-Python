@@ -52,3 +52,7 @@ if __name__ == '__main__':
     c = Vector([0,1,5,3, 8])
     print(a==c)
     print(a!=c)
+    
+    # Since a implements __len__ and __getitem__, it becomes an implicit iterator. 
+    for ii in a:
+        print(ii)
