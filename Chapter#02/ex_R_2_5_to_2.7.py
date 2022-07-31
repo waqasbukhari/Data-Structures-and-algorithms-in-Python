@@ -1,11 +1,7 @@
-##def check_numb(numb):
-##    if not (isinstance(numb, float) or isinstance(numb, int)):
-##        raise ValueError('price should be a number')
-    
 class CreditCard:
     """A consumer credit card. """
 
-    def __init__(self, customer, bank, acnt, limit):
+    def __init__(self, customer, bank, acnt, limit, balance=0):
         """ Create a new credit card instance.
             The initial balance is zero.
             customer the name of the customer (e.g., John Bowman )
@@ -17,7 +13,7 @@ class CreditCard:
         self._bank = bank
         self._account = acnt
         self._limit = limit
-        self._balance = 0
+        self._balance = balance
 
     def get_customer(self):
         return self._customer
@@ -35,30 +31,24 @@ class CreditCard:
         return self._balance
     
     def charge(self, price):
-
-        try:
-            tmp = price + self._balance
-        except TypeError:
-            return False
-        if price < 0:
-            raise ValueError("Price should be greater than zero")
-
-        if tmp > self._limit: # if charge would exceed limit,
+        if not ((isinstance(float(price), float)) and (price > 0)):
+            raise ValueError('price should be a positive real number')
+        
+            
+        if price + self._balance > self._limit: # if charge would exceed limit,
             return False # cannot accept charge
         else:
             self._balance += price
             return True
 
     def make_payment(self, amount):
+        if not ((isinstance(float(amount), float)) and (amount > 0)):
+            raise ValueError('amount should be a positive real number')
+        self._balance -= amount
 
-        try:
-            self._balance -= amount
-        except TypeError:
-            print('check the number entered')
 
 
 if __name__ == '__main__':
     cc = CreditCard('John Doe', '1st Bank' , '5391 0375 9387 5309 ', 1000)
-    print(cc.charge(100))
-
-    print(cc.get_balance())
+    cc.charge(100.0)
+    cc.make_payment(-10)
