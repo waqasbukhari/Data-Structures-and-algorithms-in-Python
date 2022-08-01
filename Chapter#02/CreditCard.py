@@ -31,8 +31,11 @@ class CreditCard:
         return self._balance
     
     def charge(self, price):
+        ####
+        # R-2.5
         if not ((isinstance(float(price), float)) and (price > 0)):
             raise ValueError('price should be a positive real number')
+        ####
         
             
         if price + self._balance > self._limit: # if charge would exceed limit,
@@ -42,8 +45,11 @@ class CreditCard:
             return True
 
     def make_payment(self, amount):
+        ####
+        # R-2.5, R-2.6
         if not ((isinstance(float(amount), float)) and (amount > 0)):
             raise ValueError('amount should be a positive real number')
+        ####
         self._balance -= amount
 
 

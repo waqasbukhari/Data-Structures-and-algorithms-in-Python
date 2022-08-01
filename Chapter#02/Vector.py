@@ -36,7 +36,29 @@ class Vector:
     
         return self._coords == other._coords
     
+    ####
+    # R-2.9
+    def __sub__(self, other): ## lets you use == operator
+        if len(self) != len(other): # relies on len method
+            raise ValueError("dimensions must agree")
         
+        result = Vector(dim=len(self))
+        for i in range(len(self)):
+            result[i] = self._coords[i] - other._coords[i]
+
+        return result
+    ####
+        
+    ####
+    # R-2.10
+    def __neg__(self): ## This special method let you use -inst 
+        """Produce string representation of vector."""
+        result = Vector(dim=len(self))
+        for i in range(len(self)):
+            result[i] = - self._coords[i]
+
+        return result
+    ####
 
 if __name__ == '__main__':
     a = Vector([0,1,2,3, 8])

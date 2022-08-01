@@ -31,26 +31,9 @@ class Vector:
         """Return True if vector has same coordinates as other."""
         return self._coords == other._coords
 
-    def __sub__(self, other): ## lets you use == operator
-        if len(self) != len(other): # relies on len method
-            raise ValueError("dimensions must agree")
-        
-        """Return True if vector has same coordinates as other."""
-        result = Vector(len(self))
-        for i in range(len(self)):
-            result[i] = self._coords[i] - other._coords[i]
-
-        return result
 
 
             
-    def __neg__(self): ## This special method let you use -inst 
-        """Produce string representation of vector."""
-        result = Vector(len(self))
-        for i in range(len(self)):
-            result[i] = - self._coords[i]
-
-        return result
 
 
     def __ne__(self, other): ## lets you use != operator

@@ -46,8 +46,11 @@ class Range:
         Implement an efficient O(1) operation. 
         """    
         # Check if the val is within the range. 
-        if self._start <= val < self.stop : 
-            pass
+        if self._start <= val < self._stop : 
+            diff_from_start = val - self._start
+            q,r = divmod(diff_from_start , self._step)
+            if r==0: # meaning val is part of the Range. 
+                return True
         
         else:
             return False # Even val is not within the range. 
@@ -67,13 +70,28 @@ def test_range():
     except: 
         return 
     print(a,b,c)
-    B = range(a,b,c)
-    C = Range(a,b,c)
-    for a, b in zip(B, C):
-        if a!=b:
+    
+    B = range(a,b,c) # built-in range
+    C = Range(a,b,c) # defined range
+    
+    # Test elements of the range. 
+    for e_A, e_B in zip(B, C):
+        if random.randint(0,1): # check contains
+            # An element is know to be in the range. 
+            if e_A not in C:
+                raise ValueError('Element no found but element is there. ')
+                
+            # element not known to be in the array. 
+            tmp_element = random.randint(a,b-1)
+            if ((tmp_element in B) ^ (tmp_element in C)):
+                print(a,b,c)
+                raise ValueError("__contains__ implementation is wrong. ")
+            
+        if e_A!=e_B:
             print(a,b,c)
             raise ValueError('there is an error. ')
         
+    # Test length
     if len(B) != len(C):
         print(a,b,c)
         print(len(B), len(C))
@@ -86,8 +104,3 @@ if __name__ == '__main__':
 
     for _ in range(10000):
         test_range()
-        
-    a = Range(2,10,2)
-    print(4 in a)
-        
-
