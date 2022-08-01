@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class SequenceIterator:
+class ReversedSequenceIterator:
     def __init__(self, seq=[]):
         self._seq = seq
         self._item_to_return = len(self._seq) - 1
@@ -19,6 +19,6 @@ class SequenceIterator:
         
 
 if __name__ == '__main__':
-    A = SequenceIterator([0,1,2,3, 8])
+    A = ReversedSequenceIterator([0,1,2,3, 8])
     for a in A:
         print(a)

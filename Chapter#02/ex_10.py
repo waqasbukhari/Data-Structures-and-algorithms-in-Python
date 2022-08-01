@@ -7,7 +7,7 @@ The changes are enclosed within comments specifying it to be part of R-2.10.
 
 from Vector import Vector
 
-v = Vector(seq=[0,1,2,8, 8]) 
+v = Vector([0,1,2,8, 8]) 
 w = -v 
 
 print(w)

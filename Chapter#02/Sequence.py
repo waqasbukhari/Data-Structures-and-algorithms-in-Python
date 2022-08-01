@@ -33,7 +33,7 @@ class Sequence(metaclass=ABCMeta):
             if self[j] == val: # found a match
                 k += 1
         return k
-    
+    ####
     # R-2.22    
     def __eq__(self, other):
         if len(self) == len(other):
@@ -45,7 +45,9 @@ class Sequence(metaclass=ABCMeta):
             raise ValueError("Sequences to compare should have equal lengths. ")
             
         return True
+    ####
         
+    ####
     # R-2.23
     def __lt__(self, other):
         if len(self) == len(other):
@@ -57,6 +59,7 @@ class Sequence(metaclass=ABCMeta):
             raise ValueError("Sequences to compare should have equal lengths. ")
             
         return True
+    ####
 
         
 
