@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 
 import random
 class Range:
@@ -36,6 +36,28 @@ class Range:
     def __iter__(self):
         return self
         
+    def __contains__(self, val):
+        """
+        C-2.27. 
+        An iterator implicitly implements __contains__ 
+        but it has to run through all the values in a sequence. 
+        So, it becomes O(n) operation. 
+        
+        Implement an efficient O(1) operation. 
+        """    
+        # Check if the val is within the range. 
+        if self._start <= val < self.stop : 
+            pass
+        
+        else:
+            return False # Even val is not within the range. 
+        
+        
+        
+        
+        
+        
+        
         
 def test_range():        
     a = random.randint(0,100)
@@ -61,7 +83,11 @@ def test_range():
         
     
 if __name__ == '__main__':
+
     for _ in range(10000):
         test_range()
+        
+    a = Range(2,10,2)
+    print(4 in a)
         
 
