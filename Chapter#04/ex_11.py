@@ -1,83 +1,54 @@
 from time import time
 from random import shuffle
 
-def element_uniqueness(seq):
-    for i in range(len(seq)):
-        for j in range(i+1, len(seq)):
 
-            if seq[i] == seq[j]:
-                return False
-
-    return True
-
-##def element_uniqueness_recur(seq):
-##    len_seq = len(seq)
-##    half_len_seq = len_seq // 2
-##
-##    left_seq = seq[:half_len_seq]
-##    right_seq = seq[half_len_seq:]
-##
-##    def cross_element_uniqueness(seq1, seq2):
-##        """ This function finds if an element in seq1 is in seq2.          
-##        """
-##
-##        for el_seq1 in seq1:
-##            for el_seq2 in seq2:
-##                if el_seq1 == el_seq2:
-##                    return False
-##
-##        return True
-##                
-##
-##
-##    res1 = element_uniqueness(left_seq)
-##    if not res1:
-##        return False        
-##    res2 = cross_element_uniqueness(left_seq, right_seq)
-##    if not res2:
-##        return False
-##    res3 = cross_element_uniqueness(right_seq, left_seq)
-##    if not res3:
-##        return False
-##    res4 = element_uniqueness(right_seq)
-##    if not res4:
-##        return False
-##
-##    return True
-
-def element_uniqueness_recur(seq):
-    len_seq = len(seq)
-    if len_seq == 1:
-        return seq#[0]
+def are_elements_unique(S):
+    # base case. 
+    if len(S) <= 1:
+        return True
+        
+    # first n-1 elements are unique.
+    first_result = are_elements_unique(S[:-1])
+    # last n-1 elements are unique.
+    second_result = are_elements_unique(S[1:])
+    # Ensure first and last elements are different
+    third_result = S[0] != S[-1]
     
-    half_len_seq = len_seq // 2
-
-    left_seq = element_uniqueness_recur(seq[:half_len_seq])
-    right_seq = element_uniqueness_recur(seq[half_len_seq:])
-
-    if bool(left_seq) + bool(right_seq) < 2:
-        return False
-
-
-    for el_seq1 in left_seq:
-        for el_seq2 in right_seq:
-            if el_seq1 == el_seq2:
-                return False
-            
-    return left_seq + right_seq
-            
+    return first_result and second_result and third_result
+    
+def are_elements_unique_savings(S, results={}):
+    # Check if the result is already computed. 
+    str_repr = S.__str__()
+    if str_repr in results:
+        return results[str_repr]
+        
+    # base case. 
+    if len(S) <= 1:
+        return True
+        
+    # first n-1 elements are unique.
+    first_result = are_elements_unique_savings(S[:-1])
+    results[S[:-1].__str__()] = first_result
+    # last n-1 elements are unique.
+    second_result = are_elements_unique_savings(S[1:])
+    results[S[1:].__str__()] = second_result
+    # Ensure first and last elements are different
+    third_result = S[0] != S[-1]
+    
+    return first_result and second_result and third_result
+    
 
     
 if __name__ == '__main__':
-    seq = list(range(10800))
+
+    seq = list(range(26))
     shuffle(seq)
-    # seq += [1]
 
     t= time()
-    print(element_uniqueness(seq))
+    print(are_elements_unique(seq))
     print(time() - t)
     
     t= time()
-    print(bool(element_uniqueness_recur(seq)))
+    print(bool(are_elements_unique_savings(seq)))
     print(time() - t)
     
