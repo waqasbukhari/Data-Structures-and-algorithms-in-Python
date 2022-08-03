@@ -17,18 +17,19 @@ class DynamicArray():
 
     def append(self, e):
         if self._size == self._capacity:
-            self._resize()
+            self._resize(2*self._capacity)
 
         self._A[self._size] = e
         self._size += 1
 
-    def _resize(self):
-        B = self._make_array(2 * self._capacity)
-        self._capacity = len(B)
+    def _resize(self, capacity):
+        B = self._make_array(capacity)
         for i in range(self._size):
             B[i] = self._A[i]
 
         self._A = B
+        self._capacity = 2*self._capacity
+
     def _make_array(self, capacity):
         return (capacity * ctypes.py_object)()
 
