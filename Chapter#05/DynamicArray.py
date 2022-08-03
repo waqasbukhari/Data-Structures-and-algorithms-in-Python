@@ -21,6 +21,18 @@ class DynamicArray():
 
         self._A[self._size] = e
         self._size += 1
+        
+    def insert(self, k, value):
+        "Insert value at index k. "
+        if self._size == self._capacity:
+            self._resize(2*self._capacity)
+            
+        for i in range(k, self._size+1):
+            self._A[i+1] = self._A[i]
+            
+        self._A[k] = value
+        self._size += 1
+        
 
     def _resize(self, capacity):
         B = self._make_array(capacity)
@@ -37,8 +49,10 @@ class DynamicArray():
 if __name__ == "__main__":
     A = DynamicArray()
     for i in range(10):
-        print(len(A))
-
         A.append(i)
+        
+    A.insert(5,25)
+    
+    for a in A:
+        print(a)
 
-print(len(A))
