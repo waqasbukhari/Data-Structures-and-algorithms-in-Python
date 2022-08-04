@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys # provides getsizeof function
 data = [ ]
 n = 26
