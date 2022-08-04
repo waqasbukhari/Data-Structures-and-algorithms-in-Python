@@ -58,7 +58,25 @@ class DynamicArray():
                 
         raise ValueError('Value not found. ')
                 
-                
+    def remove_all(self, value):
+        """
+        C-5.25
+        LOGIC: keep a variable called count that keeps track of the number of times value is found. 
+        and use this variable to help in shifting values. 
+        Finally, use this variable to reduce the self._size. 
+        """
+        found_count = 0
+        i = 0
+        # keep i as index to assign to. and i+found_count to assign from.
+        while i < (self._size - found_count): 
+            if (self._A[i + found_count] == value):
+                found_count += 1
+                continue
+            self._A[i] = self._A[i+found_count]
+            i += 1
+        self._size -= found_count
+        if found_count == 0:
+            raise ValueError('Value not found. ')
         
 
     def _resize(self, capacity):
@@ -72,28 +90,30 @@ class DynamicArray():
     def _make_array(self, capacity):
         return (capacity * ctypes.py_object)()
 
+    def pop(self):
+        self._size -= 1
+        # When the size goes to or below capacity/4, reduce the array size. 
+        if self._size <= self._capacity //4:
+            self._resize(self._capacity // 2)
+
 
 if __name__ == "__main__":
     A = DynamicArray()
-    for i in range(7):
-        A.append(i)
-        
-        
-    A.insert(0,25)
-    A.insert(5,25)
-    A.insert(6,28)
-    
+    A.append(15)
+    A.append(15)
+    A.append(0)
+    A.append(15)
+    A.append(1)
+    A.append(15)
+    A.append(5)
+    A.append(15)
+    A.append(315)
+    A.append(15)
+    A.append(125)
+    A.append(15)
+    A.remove_all(15)
+
     for a in A:
         print(a)
-        
-    print()
-    A.remove(5)
-    A.remove(0)
-    A.remove(25)
-    
-    
-    for a in A:
-        print(a)
-        
-        
+
 
