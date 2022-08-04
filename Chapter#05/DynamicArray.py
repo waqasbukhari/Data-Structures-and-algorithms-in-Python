@@ -10,8 +10,15 @@ class DynamicArray():
         return self._size
 
     def __getitem__(self, k):
-        if not (0<= k < self._size):
-            raise IndexError("Invalid index")
+        ####
+        # R-5.4
+        if not (-self._size <= k < self._size):
+            raise IndexError('invalid index')
+        ####
+        # R-5.4
+        if k<0:
+            k += self._size
+        ####
 
         return self._A[k]
 
@@ -23,12 +30,18 @@ class DynamicArray():
         self._size += 1
         
     def insert(self, k, value):
+        B = self._A
         "Insert value at index k. "
         if self._size == self._capacity:
-            self._resize(2*self._capacity)
-            
+            # modification
+            # R-5.6
+            self._A = self._make_array(2 * self._capacity)
+            self._capacity = 2*self._capacity
+            for i in range(k):
+                self._A[i] = B[i] 
+                
         for i in range(self._size-1, k-1, -1):
-            self._A[i+1] = self._A[i]
+            self._A[i+1] = B[i]
             
         self._A[k] = value
         self._size += 1
@@ -62,16 +75,25 @@ class DynamicArray():
 
 if __name__ == "__main__":
     A = DynamicArray()
-    for i in range(10):
+    for i in range(7):
         A.append(i)
+        
         
     A.insert(0,25)
     A.insert(5,25)
-    A.remove(6)
-    A.remove(9)
+    A.insert(6,28)
+    
+    for a in A:
+        print(a)
+        
+    print()
+    A.remove(5)
+    A.remove(0)
     A.remove(25)
     
     
     for a in A:
         print(a)
+        
+        
 
