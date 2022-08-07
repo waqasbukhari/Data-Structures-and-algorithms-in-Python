@@ -3,6 +3,11 @@ class Empty(Exception):
         Note that Empty is a subclass of python's builtin Exception class"""
     pass
 
+class Full(Exception):
+    """ Error attempting to access element from empty container.
+        Note that Empty is a subclass of python's builtin Exception class"""
+    pass
+
 class ArrayStack:
     """ This class implements stack using Python list as an Adapter Pattern.
 
@@ -17,17 +22,31 @@ class ArrayStack:
 
     """
 
-    def __init__(self):
-        self._data = []
+    def __init__(self, maxlen=None):
+        self._maxlen = maxlen
+        self._size = 0
+        self._data = [None] * 0
+        if self._maxlen:
+            self._data = [None] * self._maxlen
+            
 
     def __len__(self):
-        return len(self._data)
+        return self._size
     
     def is_empty(self):
-        return len(self._data) == 0
+        return self._size == 0
     
     def push(self, e):
-        self._data.append(e)
+        ####
+        # C-6.16        
+        if len(self) == self._maxlen:
+            raise Full("Stack capacity is full. ")
+        ####
+        if self._maxlen:
+            self._data[self._size] = e
+        else:
+            self._data.append(e)
+        self._size += 1
 
     def top(self):
         if self.is_empty():
@@ -37,7 +56,14 @@ class ArrayStack:
     def pop(self):
         if self.is_empty():
             raise Empty("The stack is empty")
-        return self._data.pop()
+            
+        if self._maxlen:
+            answer = self._data[-1]
+            self._data[-1] = None
+        else:
+            answer = self._data.pop()
+        self._size -= 1
+        return answer
 
     
 
