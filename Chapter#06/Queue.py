@@ -53,7 +53,18 @@ class ArrayQueue:
         idx = (self._front + self._size) % len(self._data)
         self._data[idx ] = e
         self._size += 1
-        
+
+    def rotate(self):
+        # An implementation of self.enqueue(dequeue())
+        if self._size == 0:
+            raise Empty("Queue is empty. ")
+            
+        e = self._data[self._front]
+        self._data[self._front] = None
+        self._front =  (self._front + 1) % self._capacity
+        idx = (self._front + self._size-1) % len(self._data)
+        self._data[idx ] = e
+
     
     def _resize(self, capacity):
         
