@@ -54,15 +54,4 @@ class _DoublyLinkedBase:
         return answer
         
 if __name__ == '__main__':
-    D = CircularQueue()
-
-    D.enqueue(1)
-    D.enqueue(2)
-    D.enqueue(3)
-    
-    
-    print(D.dequeue())
-    print(D.first())
-    print(D.dequeue())
-    
-    
+    D = _DoublyLinkedBase()
