@@ -52,6 +52,19 @@ class LinkedQueue:
         self._size += 1
         self._tail = node
         
+    def rotate(self):
+        if self.is_empty():
+            raise Empty("list is empty. ")
+
+        # it is enqueue(dequeue())
+        # since the dequeue() is from head. 
+        new_tail = self._head # save head as a node. 
+        self._head = new_tail._next # assign next of head to be new head. 
+        new_tail._next = None # since old head need to be tail, set its _next to None. 
+
+        self._tail._next = new_tail # set _next of hte old tail to the old head
+        self._tail = new_tail # set tail. 
+
 
 if __name__ == '__main__':
     D = LinkedQueue()
