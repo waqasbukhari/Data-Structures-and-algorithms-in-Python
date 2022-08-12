@@ -4,25 +4,21 @@ class Empty(Exception):
     pass
 
 class _DoublyLinkedBase:
-    """ A base class providing a doubly linked list representation. 
-
-    """
+    """ A base class providing a doubly linked list representation."""
     class _Node:
-        __slots__ = '_element', '_prev', '_next'
-        def __init__(self, element, prev, next):
-            self._element = element
-            self._next = next
-            self._prev = prev
+        __slots__ = '_element' , '_prev' , '_next' # streamline memory
+        def __init__(self, element, prev, next): # initialize node’s fields
+            self._element = element # user’s element
+            self._prev = prev # previous node reference
+            self._next = next # next node reference
 
-    ######### Methods for DoublyLinkedBase.
-
+    # MAIN METHODS
     def __init__(self):
-         # create sentinels
-        self._head = self._Node(None, None, None) # create sentinels
-        self._tail = self._Node(None, self._head, None) # Initiall prev of tail points to head
-        self._head._next = self._tail # Initiall next of head points to tail
-
-        self._size = 0
+        self._header = self._Node(None, None, None)
+        self._trailer = self._Node(None, None, None)
+        self._header._next = self._trailer # trailer is after header
+        self._trailer._prev = self._header # header is before trailer
+        self._size = 0 # number of elements
 
     def __len__(self):
         return self._size
@@ -30,28 +26,24 @@ class _DoublyLinkedBase:
     def is_empty(self):
         return self._size == 0
 
-
-    def _insert_between(self, e, preceeding_node, following_node):
-        new_node = self._Node(e, following_node, preceeding_node)
-        preceeding_node._next = new_node
-        following_node._prev = new_node
-
+    def _insert_between(self, e, predecessor, successor):
+        newest = self._Node(e, predecessor, successor) # linked to neighbors
+        predecessor._next = newest
+        successor._prev = newest
         self._size += 1
 
-        return new_node
+        return newest
 
-        
     def _delete_node(self, node):
-        preceeding_node = node._prev
-        following_node = node._next
-
-        preceeding_node._next, following_node._prev = following_node, preceeding_node
+        predecessor = node._prev
+        successor = node._next
+        predecessor._next = successor
+        successor._prev = predecessor
         self._size -= 1
-        answer = node._element
+        element = node._element # record deleted element
+        node._prev = node._next = node._element = None # deprecate node
+        return element # return deleted element
 
-        node._element = node._next = node._prev = None
-
-        return answer
         
 if __name__ == '__main__':
     D = _DoublyLinkedBase()
