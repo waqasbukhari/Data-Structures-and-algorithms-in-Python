@@ -24,14 +24,14 @@ class DynamicArray:
     def append(self,obj):
 
         if self._n == self._capacity:
-            self._resize(2*self._capacity)
+            self._resize(self._capacity+0.25*self._capacity)
             self._A[self._n] = obj
             self._n =+ 1
 
     def insert(self,k,val):
 
         if self._n == self._capacity:
-            B = self._make_array(2*self._capacity)
+            B = self._make_array((self._capacity+0.25*self._capacity))
             for i in range(0,k):
                 B[i] = A[i]
             B[k] = val
@@ -53,6 +53,6 @@ class DynamicArray:
         return (c*ctypes.py_object)()
 
 
-    def insert(self,k,val):
+
 
         
