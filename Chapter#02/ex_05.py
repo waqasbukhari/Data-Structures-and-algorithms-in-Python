@@ -1,11 +1,11 @@
 class CreditCard:
-    def __init__ (self,customer,bank, acnt,limit):
+    def __init__ (self,customer,bank, acnt,limit,,balance):
         
         self._customer = customer
         self._bank = bank
         self._acnt = acnt
         self._limit = limit
-        self._get_balance = 0
+        self._get_balance = balance #R07
         
     def get_customer(self):
         return self._customer
@@ -33,10 +33,13 @@ class CreditCard:
             self._balance += price
             return True
     def make_payment(self,amount):
+        #R06
+        if amount < 0:
+            raise ValueError ("enter non-negative value for making payment")
+
         try:
             amount = int(amount)
         except:
             TypeError: "enter integer valuess for payment"
 
         self._balance -= amount
-        
