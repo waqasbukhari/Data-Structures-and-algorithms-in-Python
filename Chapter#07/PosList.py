@@ -41,7 +41,7 @@ class PositionalList(_DoublyLinkedBase):
 
     def _make_position(self,node):
 
-        if node is self_header or node is self._trailer:
+        if node is self._header or node is self._trailer:
 
             return None
 
@@ -60,24 +60,32 @@ class PositionalList(_DoublyLinkedBase):
     def before(self,p):
 
         node = self._validate(p)
-        return self._make_position(self._node._prev)
+        return self._make_position(node._prev)
 
     def after(self,p):
 
         node = self._validate(p)
-        return self._make_position(self._node._next)
+        return self._make_position(node._next)
 
     def __iter__(self):
 
         cursor = self.first()
         while cursor is not None:
-            yield cursor.element()
-            cursor = self.after(curcor)
+            yield (cursor.element())
+            cursor = self.after(cursor)
+    #R15
+    def reverse(self):
 
+        cursor = self.last()
 
+        while cursor is not None:
+            yield (cursor.element())
+            cursor = self.before(cursor)
+
+    
     def _insert_between(self,e,predecessor,successor):
 
-        node = super()._insert_between(self,e,predecessor,successor)
+        node = super()._insert_between(e,predecessor,successor)
         return self._make_position(node)
 
     def add_first(self,e):
@@ -113,13 +121,24 @@ class PositionalList(_DoublyLinkedBase):
         original.element = e
 
         return old_value
-    
+    #R12
+    def max_ele(self):
+        max_element = 0
+        for x in self:
+            if x > max_element:
+                max_element = x
 
-    
+        return max_element
+    #R13 
+    def find(self,e):
+
+        for x in self:
+            if x == e:
+                return ('found first occurrence of ',e)
     
         
     
-
+    
 
 
 
