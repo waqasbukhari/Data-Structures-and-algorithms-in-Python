@@ -15,7 +15,7 @@ class DynamicArray:
     def __getitem__(self,k):
 
         #R04
-        if -self._n< k <=0:
+        if -self._n <= k <0:
             k = k+self._n+1
         #R04
         return self._A[k]
@@ -32,12 +32,12 @@ class DynamicArray:
 
         if self._n == self._capacity:
             B = self._make_array((self._capacity+0.25*self._capacity))
-            for i in range(0,k):
-                B[i] = A[i]
-            B[k] = val
-            for j in range(k+1,self._n):
-                B[j] = A[j-1]
-            self._n += 1
+        for i in range(0,k):
+            B[i] = A[i]
+        B[k] = val
+        for j in range(k+1,self._n):
+            B[j] = A[j-1]
+        self._n += 1
 
         
     def _resize(self,c):
@@ -51,6 +51,13 @@ class DynamicArray:
     def _make_array(self,c):
 
         return (c*ctypes.py_object)()
+
+    #R16
+    def pop(self):
+        self._A = self._A.pop()
+        self._size -= 1
+        if self._size <= self._capacity //4:
+            self._resize(self._capacity // 2)
 
 
 
