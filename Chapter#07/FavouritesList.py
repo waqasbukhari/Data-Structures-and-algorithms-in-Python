@@ -61,7 +61,13 @@ class FavouritesList:
 
     def remove(self,e):
 
+        p = self._find_position(e)
+        
+        if p is not None:
+                self._data.delete(p)
 
+        
+        """
         if 1 <= k <= len(self):
 
             raise ValueError ('Illegal value of k')
@@ -74,8 +80,16 @@ class FavouritesList:
             yield item._value
 
             walk = self._data.after(walk)
-            
-            
+        """
+
+    def clear(self):
+        for item in self._data:
+            if item is not None:
+                p = self._find_position(e)
+                self._data.delete(p)
+
+        return(self)
+              
 
         
 

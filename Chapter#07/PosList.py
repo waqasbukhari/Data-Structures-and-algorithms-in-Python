@@ -136,7 +136,34 @@ class PositionalList(_DoublyLinkedBase):
             if x == e:
                 return ('found first occurrence of ',e)
     
+    #R17
+
+
+    def move2front(self,p):
+
+        if 1 <= p <= len(self):
+
+            raise ValueError ('Illegal value of p')
         
+        temp = PositionalList()
+        for item in self:
+            temp.add_last(item)
+
+        for j in range(p):
+
+            highPos = temp.first()
+            walk = temp.after(highPos)
+            while walk is not None:
+                if walk.element()._count > highPos.element()._count:
+                    highPos = walk
+                walk = temp.after(walk)
+            yield highPos.element()._value
+
+            temp.delete(highPos)
+
+
+
+            
     
     
 
