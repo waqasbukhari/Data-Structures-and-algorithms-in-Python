@@ -1,6 +1,10 @@
-from DoublyLinkedList import _DoublyLinkedBase
 
-class PositionalList(_DoublyLinkedBase):
+"""
+positional list ADT without sentinals
+"""
+from DoublyLinkedList_woSentinals import _DoublyLinkedWOSBase
+
+class PositionalListWOS(_DoublyLinkedWOSBase):
 
     class Position:
 
@@ -40,22 +44,16 @@ class PositionalList(_DoublyLinkedBase):
         return p._node
 
     def _make_position(self,node):
+            if self._size == 0:
+                self._head = self.Position(self,node))
 
-        if node is self._header or node is self._trailer:
-
-            return None
-
-        else:
             return self.Position(self, node)
 
 
     def first(self):
 
-        return self._make_position(self._header._next)
+        return self._make_position(self._head)
 
-    def last(self):
-
-        return self._make_position(self._trailer._prev)
 
     def before(self,p):
 
@@ -88,11 +86,8 @@ class PositionalList(_DoublyLinkedBase):
         node1 = self._validate(p)
         node2 = self._validate(q)
 
-        node1 = self._make_position(p)
-        node2 = self._make_position(q)
-        
-        node1prevold = node1._prev
-        node1nextold = node1._next
+        node1prevold = self.node1._prev
+        node1nextold = self.node1._next
 
         node2prevold = self.node2._prev
         node2nextold = self.node2._next
@@ -116,12 +111,11 @@ class PositionalList(_DoublyLinkedBase):
         return self._make_position(node)
 
     def add_first(self,e):
+        oldfirst = self._head
 
-        return self._insert_between(e, self._header,self._header._next)
+        return self._insert_between(e, self._head,oldfirst)
     
-    def add_last(self,e):
-
-        return self._insert_between(e, self._trailer.prev,self._trailer)
+    
 
     def add_before(self,p,e):
 
@@ -198,3 +192,4 @@ class PositionalList(_DoublyLinkedBase):
 
 
     
+
