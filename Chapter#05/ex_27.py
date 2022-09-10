@@ -1,6 +1,11 @@
-L = list(range(100))
-for i in range(len(L)):
-    if L[i] == 101:
-        print('found')
-        break
-print(' this block of code runs in O(n) time ') 
+
+def lostFound(seq):
+    result = 0
+    for i in range(len(seq)):
+        result = result ^ seq[i]
+    return result
+                
+if __name__ == "__main__":
+    s2 = [0,2,3]
+    print(s2)
+    print((lostFound(s2)))

@@ -38,7 +38,18 @@ class DynamicArray:
         for j in range(k+1,self._n):
             B[j] = A[j-1]
         self._n += 1
-
+        
+    def remove_all(self,val):
+        count = 0
+        for i in range(len(self._A)):
+            if self._A[i]==value:
+                count += 1
+        for i in range(len(data)-count+1):
+            if self._A[i]==value: 
+                del(self._A[i])
+        self._n -= count
+        
+                
         
     def _resize(self,c):
 
