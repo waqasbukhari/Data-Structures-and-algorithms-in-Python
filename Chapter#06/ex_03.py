@@ -1,9 +1,11 @@
 from Stack import ArrayStack
-S = list(range(10))
+S = ArrayStack()
+for i in range(10):
+    S.push(i)
 T = ArrayStack()
 def transfer(S,T):
-    [T.push (S[-i]) for i in range(1,len(S))]
-    T.push(S[0])
+    [T.push (S.pop()) for i in range(len(S))]
+    #T.push(S.pop())
     return T
     
 T = transfer(S,T)
